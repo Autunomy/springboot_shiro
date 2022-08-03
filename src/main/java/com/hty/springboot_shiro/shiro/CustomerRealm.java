@@ -17,7 +17,6 @@ import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Collections;
 import java.util.List;
 
 //定义Realm
@@ -61,7 +60,7 @@ public class CustomerRealm extends AuthorizingRealm {
         User user = userService.findByUserName(principal);
 
         if(!ObjectUtils.isEmpty(user)){
-            return new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(), ByteSource.Util.bytes(user.getSalt()),this.getName());
+            return new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(), new MyByteSource(user.getSalt()),this.getName());
         }
         return null;
     }

@@ -1,7 +1,9 @@
 package com.hty.springboot_shiro.config;
 
 import com.hty.springboot_shiro.shiro.CustomerRealm;
+import com.hty.springboot_shiro.shiro.RedisCacheManager;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -28,6 +30,7 @@ public class ShiroConfig {
         map.put("/user/login","anon");//设置为公共资源
         map.put("/user/register","anon");//设置为公共资源
         map.put("/register.jsp","anon");//设置为公共资源
+        map.put("/user/getImage","anon");//设置为公共资源
         map.put("/**","authc");//authc请求这个资源需要认证和授权
 
         //默认认证界面路径为login.jsp
@@ -58,6 +61,15 @@ public class ShiroConfig {
         //设置散列次数
         credentialsMatcher.setHashIterations(1024);
         customerRealm.setCredentialsMatcher(credentialsMatcher);
+
+        //开启缓存管理
+        customerRealm.setCacheManager(new RedisCacheManager());
+        customerRealm.setCachingEnabled(true);//全局开启缓存管理
+        customerRealm.setAuthenticationCachingEnabled(true);//开启认证缓存
+        customerRealm.setAuthenticationCacheName("authenticationCache");//给认证缓存设置名称
+        customerRealm.setAuthorizationCachingEnabled(true);//开启授权缓存
+        customerRealm.setAuthorizationCacheName("authorizationCache");
+
         return customerRealm;
     }
 }

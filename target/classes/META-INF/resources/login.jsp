@@ -12,7 +12,9 @@
 <h1>用户登陆</h1>
 <form action="${pageContext.request.contextPath}/user/login" method="post">
     用户名:<input type="text" name="username"> <br>
-    密码  :<input type="password" name="password">
+    密码  :<input type="password" name="password"> <br>
+    请输入验证码:<input type="text"> 
+    <img src="${pageContext.request.contextPath}/user/getImage" alt=""> <br>
     <button>登陆</button>
 </form>
 </body>

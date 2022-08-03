@@ -28,7 +28,7 @@
                     <shiro:hasPermission name="user:update:*">
                         <li><a href="">修改用户</a></li>
                     </shiro:hasPermission>
-                    <shiro:hasPermission name="user:delete:*">
+                    <shiro:hasPermission name="order:find:*">
                         <li><a href="">删除用户</a></li>
                     </shiro:hasPermission>
                 </ul>
